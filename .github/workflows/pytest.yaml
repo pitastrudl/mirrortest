@@ -1,0 +1,20 @@
+on: [ push, pull_request ]
+name: pytest test validation
+jobs:
+    pytest:
+        runs-on: ubuntu-latest
+        container:
+            image: archlinux:latest
+            options: --privileged
+        steps:
+            - uses: actions/checkout@v2
+            - run: pacman --noconfirm -Syu python python-pydantic python-pytest python-pytest-cov
+            - name: Test with pytest
+              run: python -m pytest --cov=mirrortest --cov-report html
+              env: # Or as an environment variable
+                PASSWORD: ${{ secrets.HASH }}
+            - name: Archive code coverage results
+              uses: actions/upload-artifact@v3
+              with:
+                name: code-coverage-report
+                path: htmlcov/

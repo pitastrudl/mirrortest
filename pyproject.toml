@@ -7,6 +7,7 @@ authors = [
 	{name = "Anton Hvornum", email = "anton@hvornum.se"}
 ]
 description = "Test the health of a given mirror."
+homepage = "https://github.com/Torxed/mirrortest.git"
 readme = "README.md"
 requires-python = ">=3.10"
 keywords = ["arch", "linux", "mirror", "test", "health", "sync"]
@@ -21,8 +22,18 @@ dynamic = [
 	"version"
 ]
 
+[project.optional-dependencies]
+test = [
+	"pytest",
+	"mypy",
+	"flake8",
+]
+
 [project.scripts]
 mirrortest = "mirrortest.tooling.cli:run"
 
 [tool.setuptools.dynamic]
 version = {attr = "mirrortest.__version__"}
+
+[tool.mypy]
+exclude = ['venv', '.venv', 'tests', 'build']

@@ -5,3 +5,7 @@
 /dist
 /build
 /*.tar.gz*
+/*.log
+/*.coverage
+/results.db
+/*.py
